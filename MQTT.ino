@@ -111,7 +111,7 @@ void loop() {
   // Reconnect to MQTT broker if disconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    if (client.connect("ArduinoClient")) {
+    if (client.connect("ArduinoClient", SECRET_MQTT_USER, SECRET_MQTT_PASS)) {
       Serial.println("Connected to MQTT broker");
     } else {
       Serial.print("Failed, rc=");
