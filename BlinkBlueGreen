@@ -49,10 +49,5 @@ void loop() {
 */
 void onBlinkTestChange()  {
   // Add your code here to act upon BlinkTest change
-  if(blinkTest == true){
-    digitalWrite(ledGreen, HIGH);
-  }
-  else{
-    digitalWrite(ledGreen,LOW);
-  }
+ 
 }
