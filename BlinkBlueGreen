@@ -1,0 +1,58 @@
+#include "thingProperties.h"
+int ledBlue = 2;
+int ledGreen = 3;
+
+void setup() {
+  // Initialize serial and wait for port to open:
+  Serial.begin(9600);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(ledBlue, OUTPUT);
+  pinMode(ledGreen, OUTPUT);
+  // This delay gives the chance to wait for a Serial Monitor without blocking if none is found
+  delay(1500); 
+
+  // Defined in thingProperties.h
+  initProperties();
+
+  // Connect to Arduino IoT Cloud
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  
+  /*
+     The following function allows you to obtain more information
+     related to the state of network and IoT Cloud connection and errors
+     the higher number the more granular information you’ll get.
+     The default is 0 (only errors).
+     Maximum is 4
+ */
+  setDebugMessageLevel(2);
+  ArduinoCloud.printDebugInfo();
+}
+
+void loop() {
+  ArduinoCloud.update();
+  // Your code here 
+  digitalWrite(ledGreen, HIGH);
+  delay(1000);
+  digitalWrite(ledGreen, LOW);
+  delay(1000);
+  digitalWrite(ledBlue, HIGH);
+  delay(2000);
+  digitalWrite(ledBlue, LOW);
+  delay(2000);
+}
+
+
+
+/*
+  Since BlinkTest is READ_WRITE variable, onBlinkTestChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onBlinkTestChange()  {
+  // Add your code here to act upon BlinkTest change
+  if(blinkTest == true){
+    digitalWrite(ledGreen, HIGH);
+  }
+  else{
+    digitalWrite(ledGreen,LOW);
+  }
+}
